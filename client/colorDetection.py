@@ -48,7 +48,7 @@ class MQTTColorEventPublisher:
 def main():
     # Read configuration file
     config = yaml.safe_load(open("./config.yml"))
-    print(config["client"]["id"])
+    print( "Collecting events on %s (Video source: %s)" % (config["client"]["id"], config["client"]["video_source"]))
     # define a video capture object on source 0
     vid = cv2.VideoCapture(config["client"]["video_source"])
 
