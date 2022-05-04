@@ -54,8 +54,8 @@ def main():
 
     # define colors to detect
     colors = [Color("blue", np.array([110, 50, 50]), np.array([130, 255, 255])),
-              Color("red_low", np.array([0, 130, 100]), np.array([5, 255, 255])),
-              Color("red_high", np.array([175, 130, 100]), np.array([180, 255, 255])),
+              #Color("red", np.array([0, 130, 100]), np.array([5, 255, 255])),      # Lower red range
+              Color("red", np.array([175, 130, 100]), np.array([180, 255, 255])),   # Upper red range
               Color("yellow", np.array([20, 130, 100]), np.array([60, 255, 255]))]
 
     # Image Processing Loop
@@ -91,7 +91,7 @@ def main():
     # Destroy all the windows
     cv2.destroyAllWindows()
     # Stop MQTT processing loop
-    client.loop_stop()
+    mqtt_client.loop_stop()
 
 if __name__ == "__main__":
     main()
