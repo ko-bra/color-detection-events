@@ -8,13 +8,21 @@ const MqttColorEventsProcessor = require('./MqttColorEventsProcessor')
 const getEvents = require('./routes/getEvents')
 const addEvent = require('./routes/addEvent')
 
+// Config
+const {
+    MQTT_HOST: MQTT_HOST,        //mqtt://broker.mqttdashboard.com
+    MQTT_TOPIC: MQTT_TOPIC,      //technology_researcher_challenge/events
+    API_USER: API_USER,         //admin
+    API_PASSWORD: API_PASSWORD, //notsecureatall
+} = process.env
+
 // Set up Express
 app.use(express.json())
 app.use(express.static(__dirname + '/static'))
 
 // Set up (very) basic auth
 app.use(basicAuth({
-    users: { 'admin': 'notsecureatall' }
+    users: { API_USER: API_PASSWORD }
 }))
 
 // Add routes
@@ -30,7 +38,7 @@ db.init().then(() => {
 })
 
 // Set up processor to handle incoming MQTT events
-let mqttColorEventsProcessor = new MqttColorEventsProcessor('mqtt://broker.mqttdashboard.com', 'technology_researcher_challenge/events')
+let mqttColorEventsProcessor = new MqttColorEventsProcessor(MQTT_HOST, MQTT_TOPIC)
 mqttColorEventsProcessor.connect()
 
 // Set up shutdown
