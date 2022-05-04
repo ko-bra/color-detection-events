@@ -5,6 +5,7 @@ import paho.mqtt.client as paho
 import dataclasses
 import json
 import time
+import yaml
 
 @dataclasses.dataclass
 class ColorAppearanceEvent:
@@ -41,22 +42,25 @@ class MQTTColorEventPublisher:
         self.client.loop_start()
 
     def publishColorEvent(self, color):
-
         event = ColorAppearanceEvent(self.client_id, time.time(), color.name, color.detected)
         return self.client.publish(self.topic, json.dumps(dataclasses.asdict(event)), qos=self.qos)
 
 def main():
+    # Read configuration file
+    config = yaml.safe_load(open("./config.yml"))
+    print(config["client"]["id"])
     # define a video capture object on source 0
-    vid = cv2.VideoCapture(0)
+    vid = cv2.VideoCapture(config["client"]["video_source"])
 
-    mqtt_client = MQTTColorEventPublisher("Macbook_Korbinian", "broker.mqttdashboard.com", 1883, "technology_researcher_challenge/events")
+    mqtt_client = MQTTColorEventPublisher(config["client"]["id"],
+                                          config["broker"]["url"],
+                                          config["broker"]["port"],
+                                          config["broker"]["topic"])
     mqtt_client.connect()
 
-    # define colors to detect
-    colors = [Color("blue", np.array([110, 50, 50]), np.array([130, 255, 255])),
-              #Color("red", np.array([0, 130, 100]), np.array([5, 255, 255])),      # Lower red range
-              Color("red", np.array([175, 130, 100]), np.array([180, 255, 255])),   # Upper red range
-              Color("yellow", np.array([20, 130, 100]), np.array([60, 255, 255]))]
+    colors = []
+    for c in config["colors"]:
+        colors.append(Color(c["name"], np.array(c["thresold_low"]), np.array(c["thresold_high"])))
 
     # Image Processing Loop
     while(True):

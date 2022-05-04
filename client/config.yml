@@ -1,0 +1,17 @@
+client:
+  id: "Macbook_Korbinian"
+  video_source: 0
+broker:
+  url: "broker.mqttdashboard.com"
+  port: 1883
+  topic: "technology_researcher_challenge/events"
+colors:
+  - name: blue
+    thresold_low: [110, 50, 50]
+    thresold_high: [130, 255, 255]
+  - name: red
+    thresold_low: [175, 130, 100]
+    thresold_high: [180, 255, 255]
+  - name: yellow
+    thresold_low: [20, 130, 100]
+    thresold_high: [60, 255, 255]
