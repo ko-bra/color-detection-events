@@ -134,12 +134,12 @@ The documentation for the API can be found [here](https://documenter.getpostman.
 ## TODOs
 The software is lacking standard capabilities to be ready for prdoctive use.</br>
 The following list is non-exhaustive:
-[ ] Authenticate API users to database
-[ ] API pagination
-[ ] API response meta data
-[ ] API rate limiting
-[ ] Replace activity field in API response with color and status fields
-[ ] Server: Split MQTT client and REST API in two different services
-[ ] Exection handling
-[ ] Security hardening
-[ ] Add time zone to event timestamp
+- [ ] Authenticate API users to database
+- [ ] API pagination
+- [ ] API response meta data
+- [ ] API rate limiting
+- [ ] Replace activity field in API response with color and status fields
+- [ ] Server: Split MQTT client and REST API in two different services
+- [ ] Exection handling
+- [ ] Security hardening
+- [ ] Add time zone to event timestamp
