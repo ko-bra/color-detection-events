@@ -6,7 +6,7 @@ COPY . .
 RUN yarn install --production
 EXPOSE 80
 ENV MQTT_HOST "mqtt://broker.mqttdashboard.com"
-ENV MQTT_TOPIC "technology_researcher_challenge/events"
+ENV MQTT_TOPIC "default_mqtt_topic_change_me/events"
 ENV API_USER "admin"
 ENV API_PASSWORD "notsecureatall"
 CMD ["node", "src/index.js"]

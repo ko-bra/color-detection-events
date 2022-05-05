@@ -1,10 +1,10 @@
 client:
-  id: "Macbook_Korbinian"
+  id: "Client1"
   video_source: 0
 broker:
   url: "broker.mqttdashboard.com"
   port: 1883
-  topic: "technology_researcher_challenge/events"
+  topic: "default_mqtt_topic_change_me/events"
 colors:
   - name: blue
     thresold_low: [110, 50, 50]

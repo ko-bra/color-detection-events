@@ -10,10 +10,10 @@ const addEvent = require('./routes/addEvent')
 
 // Config
 const {
-    MQTT_HOST: MQTT_HOST,        //mqtt://broker.mqttdashboard.com
-    MQTT_TOPIC: MQTT_TOPIC,      //technology_researcher_challenge/events
-    API_USER: API_USER,         //admin
-    API_PASSWORD: API_PASSWORD, //notsecureatall
+    MQTT_HOST: MQTT_HOST,
+    MQTT_TOPIC: MQTT_TOPIC,
+    API_USER: API_USER,
+    API_PASSWORD: API_PASSWORD,
 } = process.env
 
 // Set up Express
