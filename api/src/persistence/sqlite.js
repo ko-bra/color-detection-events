@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose()
 const fs = require('fs')
-const location = process.env.SQLITE_DB_LOCATION || '/Users/korbinian/Downloads/todo.db'
+const location = process.env.SQLITE_DB_LOCATION || '/etc/events/events.db'
 
 let db
 
