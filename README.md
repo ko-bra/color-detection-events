@@ -30,7 +30,7 @@ The events generated and served consist of the following properties:
 | ------------- | ------------- | ---- |
 | id            | Unique identifier (UUID)  | String |
 | clientId      | Identifier of the scanner that generated the event | String |
-| timestamp     | UNIX timestamp  | Double |
+| timestamp     | UNIX timestamp (presicion depends on client capabilities) | Double |
 | activity      | Describes the event, e.g. COLOR_NAME appeared/disappeared | String |
 
 
@@ -110,7 +110,8 @@ The server offers two persistence modes
 - MySQL
 
 SQLite is enabled by default, to use MySQL set the MYSQL_* environment variables.</br>
-:warning: Warning: Events are lost on container stop unless a volume is mounted to the directory containing `/etc/events/events.db`
+
+:warning: Warning when using SQLite: Events are lost on container stop unless a volume is mounted to the directory containing `/etc/events/events.db`
 ### Environment Variables
 The following environment variables can be set on container run. The `MYSQL_*` variables are optional.
 | Key             | Description         | Type |
@@ -127,5 +128,6 @@ The following environment variables can be set on container run. The `MYSQL_*` v
 Defaults are set by the Dockerfile.
 
 ### Rest API
+The default port for the API server is 80 and can be remapped outside the container.
 The documentation for the API can be found [here](https://documenter.getpostman.com/view/20818996/UyxbrVtB).
 
