@@ -34,7 +34,7 @@ async function init() {
 
     return new Promise((acc, rej) => {
         pool.query(
-            'CREATE TABLE IF NOT EXISTS color_events (id varchar(36), clientId varchar(255), timestamp TIMESTAMP, activity varchar(255)) DEFAULT CHARSET utf8mb4',
+            'CREATE TABLE IF NOT EXISTS color_events (id varchar(36), clientId varchar(255), timestamp DATETIME, activity varchar(255)) DEFAULT CHARSET utf8mb4',
             err => {
                 if (err) return rej(err)
 

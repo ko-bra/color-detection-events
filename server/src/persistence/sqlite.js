@@ -18,7 +18,7 @@ function init() {
                 console.log(`Using sqlite database at ${location}`)
 
             db.run(
-                'CREATE TABLE IF NOT EXISTS color_events (id varchar(36), clientId varchar(255), timestamp TIMESTAMP, activity varchar(255))',
+                'CREATE TABLE IF NOT EXISTS color_events (id varchar(36), clientId varchar(255), timestamp DATETIME, activity varchar(255))',
                 (err, result) => {
                     if (err) return rej(err)
                     acc()

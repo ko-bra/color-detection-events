@@ -20,7 +20,7 @@ Events are generated based on the deteced colors in the video stream and are ava
 {
     "id": "74c1c477-71cd-406a-838c-9efaa139a56f",
     "clientId": "Client1",
-    "timestamp": 1651774112.396618,
+    "timestamp": "2022-05-05T22:48:38",
     "activity": "blue appeared"
 }
 ```
@@ -30,7 +30,7 @@ The events generated and served consist of the following properties:
 | ------------- | ------------- | ---- |
 | id            | Unique identifier (UUID)  | String |
 | clientId      | Identifier of the scanner that generated the event | String |
-| timestamp     | UNIX timestamp (presicion depends on client capabilities) | Double |
+| timestamp     | ISO 8601 datetime with seconds precision | ISO 8601 datetime |
 | activity      | Describes the event, e.g. COLOR_NAME appeared/disappeared | String |
 
 
@@ -131,3 +131,15 @@ Defaults are set by the [Dockerfile](Dockerfile).
 The default port for the API server is 80 and can be remapped outside the container.
 The documentation for the API can be found [here](https://documenter.getpostman.com/view/20818996/UyxbrVtB).
 
+## TODOs
+The software is lacking standard capabilities to be ready for prdoctive use.</br>
+The following list is non-exhaustive:
+[ ] Authenticate API users to database
+[ ] API pagination
+[ ] API response meta data
+[ ] API rate limiting
+[ ] Replace activity field in API response with color and status fields
+[ ] Server: Split MQTT client and REST API in two different services
+[ ] Exection handling
+[ ] Security hardening
+[ ] Add time zone to event timestamp

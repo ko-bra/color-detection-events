@@ -4,13 +4,13 @@ import numpy as np
 import paho.mqtt.client as paho
 import dataclasses
 import json
-import time
+import datetime
 import yaml
 
 @dataclasses.dataclass
 class ColorAppearanceEvent:
     client_id: str
-    timestamp: int
+    timestamp: str
     color: str
     visible: bool
 
@@ -42,7 +42,8 @@ class MQTTColorEventPublisher:
         self.client.loop_start()
 
     def publishColorEvent(self, color):
-        event = ColorAppearanceEvent(self.client_id, time.time(), color.name, color.detected)
+        now_iso = datetime.datetime.now().replace(microsecond=0).isoformat()
+        event = ColorAppearanceEvent(self.client_id, now_iso, color.name, color.detected)
         return self.client.publish(self.topic, json.dumps(dataclasses.asdict(event)), qos=self.qos)
 
 def main():
