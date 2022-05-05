@@ -53,7 +53,7 @@ Client configuration.
 | Key           | Description         | Type |
 | ------------- | ------------- | ---- |
 | `id`          | Client identifier string   | String |
-| `video_source`| Index of the local video source used by OpenCV  | Integer |
+| `video_source`| Index of the local video capturing device used by OpenCV  | Integer |
 
 #### broker
 MQTT Broker configuration.
@@ -73,11 +73,11 @@ Array of colors to scan for.
 A HSV color array consists of the following elements
 | Key           | Description         | Type | Value |
 | ------------- | ------------- | ---- | --- |
-| `Hue`         | Color hue    | Integer | `[0-x]` |
+| `Hue`         | Color hue    | Integer | `[0-179]` |
 | `Saturation`  | Color saturation   | Integer | `[0-255]` |
 | `Value`       | Color value (proportion of black)  | Integer | `[0-255]` |
 
-For more information on HSV colors in OpenCV see xxx.
+For more information on HSV colors in OpenCV see [this tutorial](https://docs.opencv.org/3.4/da/d97/tutorial_threshold_inRange.html).
 
 ## Server
 The server is a dockerized application which handles the retreival and storage of color detection events and offers them via a REST API.
@@ -95,14 +95,15 @@ The following environment variables can be set on container run. The `MYSQL_*` v
 | -------------     | -------------       | ---- |
 | `MQTT_HOST`       | URL to the MQTT broker   | String |
 | `MQTT_TOPIC`      | MQTT Topic to receive events from | String |
-| `API_USER`        | API user (basic auth) | String |
-| `API_PASSWORD`    | API password (basic auth) | String |
+| `API_USER`        | REST API user (basic auth) | String |
+| `API_PASSWORD`    | REST API password (basic auth) | String |
 | `MYSQL_HOST`      | MySQL database host name | String |
 | `MYSQL_USER`      | MySQL database user | String |
 | `MYSQL_PASSWORD`  | MySQL database password | String |
 | `MYSQL_DB`        | MySQL database name | String |
 
+Defaults are set by the Dockerfile.
 
 ### Rest API
-The documentation for the API can be found [here](LINK).
+The documentation for the API can be found [here](https://documenter.getpostman.com/view/20818996/UyxbrVtB).
 
