@@ -125,7 +125,7 @@ The following environment variables can be set on container run. The `MYSQL_*` v
 | MYSQL_PASSWORD  | MySQL database password | String |
 | MYSQL_DB        | MySQL database name | String |
 
-Defaults are set by the Dockerfile.
+Defaults are set by the [Dockerfile](Dockerfile).
 
 ### Rest API
 The default port for the API server is 80 and can be remapped outside the container.
