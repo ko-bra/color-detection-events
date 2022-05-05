@@ -1,14 +1,15 @@
 # color-detection-events
-An **experimental** software package that detects color changes in video camera streams and offers related events via an API. The API can be integrated with Execution Management Systems like the Celonis EMS or other Process Mining Solutions.</br></br>
+An **experimental** software package that detects color changes in video camera streams and offers related events via an API. The API can be integrated with Execution Management Systems like the Celonis EMS or process mining solutions.</br></br>
 *Note: This software serves as a proof of concept and is not production ready.*
 ## Overview
-This software package consists of a local scanner and a server application.
+This software package consists of a local scanner and a server application.</b>
+Multiple scanners can monitor their individual video stream and scan for color changes.
 
-**Scanner** (1-n devices)
+**Scanner** (1-n)
 - Detects color changes in a video camera stream
 - Generates events based on changes and publishes them via MQTT
 
-**Server**
+**Server** (1)
 - Subscribes to the MQTT event stream and persists events
 - Serves events via a REST API
 
@@ -35,7 +36,9 @@ The events generated and served consist of the following properties:
 
 
 ## Scanner
-The scanners observes a video camera feed and detects the appearance and disapperance of certain colors. These detections are translated into events
+The scanners observes a video camera feed and detects the appearance and disapperance of certain colors. These detections are translated into events.
+A live view of the detected colors is shown during runtime.
+
 ### Requirements
 - Python3
 - Camera hardware accessible by OpenCV
@@ -74,7 +77,7 @@ colors:
 Client configuration.
 | Key           | Description         | Type |
 | ------------- | ------------- | ---- |
-| id            | Client identifier string   | String |
+| id            | Scanner identifier   | String |
 | video_source  | Index of the local video capturing device used by OpenCV  | Integer |
 
 #### broker
@@ -104,16 +107,28 @@ For more information on HSV colors in OpenCV see [this tutorial](https://docs.op
 ## Server
 The server is a dockerized application which handles the retreival and storage of color detection events and offers them via a REST API.
 
+## Run
+1. Build the docker image (using the Dockerfile  `./server/Dockerfile`)
+2. Run the container in an environment of your choice (adapt environment variables)
+
+Please make sure that you do run only one instance of the container since it does not scale.
+The container must keep running to collect all events.
+
 ### Persistence
-The server offers two persistence modes
+The server offers two persistence modes:
 - SQLite
 - MySQL
 
 SQLite is enabled by default, to use MySQL set the MYSQL_* environment variables.</br>
 
-:warning: Warning when using SQLite: Events are lost on container stop unless a volume is mounted to the directory containing `/etc/events/events.db`
+:warning
+- Warning when using SQLite: Events are lost on container stop unless a volume is mounted to the directory containing `/etc/events/events.db`
+- The MySQL implementation is untested
+
 ### Environment Variables
-The following environment variables can be set on container run. The `MYSQL_*` variables are optional.
+The following environment variables can be set on container run. The `MYSQL_*` variables are optional.</br>
+Defaults are set by the [Dockerfile](server/Dockerfile).
+
 | Key             | Description         | Type |
 | -------------   | -------------       | ---- |
 | MQTT_HOST       | URL to the MQTT broker   | String |
@@ -125,7 +140,6 @@ The following environment variables can be set on container run. The `MYSQL_*` v
 | MYSQL_PASSWORD  | MySQL database password | String |
 | MYSQL_DB        | MySQL database name | String |
 
-Defaults are set by the [Dockerfile](server/Dockerfile).
 
 ### Rest API
 The default port for the API server is 80 and can be remapped outside the container.
@@ -133,13 +147,21 @@ The documentation for the API can be found [here](https://documenter.getpostman.
 
 ## TODOs
 The software is lacking standard capabilities to be ready for prdoctive use.</br>
-The following list is non-exhaustive:
-- [ ] Authenticate API users to database
-- [ ] API pagination
-- [ ] API response meta data
-- [ ] API rate limiting
-- [ ] Replace activity field in API response with color and status fields
+The following list is non-exhaustive.
+
+- [ ] Server: Authenticate API users to database
+- [ ] Server: Permission management for API users
+- [ ] Server: API pagination
+- [ ] Server: API response meta data
+- [ ] Server: API rate limiting
+- [ ] Server: Add missing API endpoints
+- [ ] Server: Full filtering on API endpoints
+- [ ] Server: Replace activity field in API response with color and status fields
 - [ ] Server: Split MQTT client and REST API in two different services
-- [ ] Exection handling
-- [ ] Security hardening
+- [ ] Server: Secure against possible SQL injection
+- [ ] Server: Persistent MQTT session to levearge QoS=2
+- [ ] Scanner: Delayed reaction to color changes to filter fluctuations
+- [ ] Scanner: Support multiple color ranges per color
+- [ ] Scanner: Authentication to prevent injection of events
+- [ ] Exception handling
 - [ ] Add time zone to event timestamp
