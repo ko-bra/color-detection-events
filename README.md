@@ -1,6 +1,6 @@
 # color-detection-events
-A configurable software package that detects color changes in video camera streams and offers related events via an API. The API can be integrated with Execution Management Systems like the Celonis EMS or other Process Mining Solutions.
-
+An **experimental** software package that detects color changes in video camera streams and offers related events via an API. The API can be integrated with Execution Management Systems like the Celonis EMS or other Process Mining Solutions.</br></br>
+*Note: This software serves as a proof of concept and is not production ready.*
 ## Overview
 This software package consists of a local scanner and a server application.
 

@@ -21,8 +21,9 @@ app.use(express.json())
 app.use(express.static(__dirname + '/static'))
 
 // Set up (very) basic auth
+console.log('Securing API with ' + API_USER + ':' + API_PASSWORD)
 app.use(basicAuth({
-    users: { API_USER: API_PASSWORD }
+    users: { [API_USER]: API_PASSWORD }
 }))
 
 // Add routes
